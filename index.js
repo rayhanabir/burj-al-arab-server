@@ -17,10 +17,6 @@ admin.initializeApp({
 
 const port = 5000
 
-const pass = "arabian1234";
-
-
-
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -48,7 +44,7 @@ client.connect((err) => {
         .then((decodedToken) => {
           const tokenEmail = decodedToken.email;
           const queryEmail = req.query.email
-          if(tokenEmail ==queryEmail){        //error 
+          if(tokenEmail == queryEmail){        //error 
                                                 
             bookings.find({email:queryEmail})
             .toArray((err, documents)=>{           
@@ -58,6 +54,7 @@ client.connect((err) => {
           else{
             res.status(401).send('un authorized access');
           }
+        
            
         })
         .catch((error) => {
@@ -67,12 +64,14 @@ client.connect((err) => {
     else{
       res.status(401).send('un authorized access')
     }
+  })
 
    
 });
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port);
+app.listen(port)
